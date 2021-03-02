@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>xxx系统测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">xxx系统测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> jsonLiu</p>
+<p class='attribute'><strong>开始时间 : </strong> 2020-12-13 17:12:39</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:37.188237</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 50，通过 48，失败 2，通过率= 96.00%</p>
+
+<p class='description'>接口自动化测试报告</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 96.00% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 2 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 48 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 50 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_001_register.TestRegister</td>
+    <td class="text-center">15</td>
+    <td class="text-center">13</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',15)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_01_正常用例_正确的注册信息</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_02_异常用例_手机号已注册</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_03_异常用例_输入手机号长度大于11位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_04_异常用例_输入手机号长度小于11位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_05_异常用例_手机号为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_06_异常用例_手机号输入空格</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_07_异常用例_手机号前输入空格</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_08_异常用例_手机号后输入空格</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_09_异常用例_密码长度大于16位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_10_异常用例_密码长度小于8位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_11_异常用例_密码为空</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt1_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_12_异常用例_密码包含汉字</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft1_13' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_13_异常用例_密码包含特殊符号</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_13'>失败</button>
+    <div id='div_ft1_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_13'>失败</button>
+    <div id='div_ft1_13' class="collapse in" align="left">
+    <pre>
+    
+ft1_13: Traceback (most recent call last):
+  File "C:\.virtualenv\qcd_apiTest\lib\site-packages\ddt.py", line 182, in wrapper
+    return func(self, *args, **kwargs)
+  File "G:\python3_code\sublime_text03\14SoftwareTest\lemon_python11\APITest\python_apiTest\py_ApiTestFframework_V2\testcase\test_001_register.py", line 88, in test_register
+    raise e
+  File "G:\python3_code\sublime_text03\14SoftwareTest\lemon_python11\APITest\python_apiTest\py_ApiTestFframework_V2\testcase\test_001_register.py", line 74, in test_register
+    self.assertEqual(actual,excepted_result)
+AssertionError: 0 != 2
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_14' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_14_正常用例_注册名为10位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_14'>失败</button>
+    <div id='div_ft1_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_14'>失败</button>
+    <div id='div_ft1_14' class="collapse in" align="left">
+    <pre>
+    
+ft1_14: Traceback (most recent call last):
+  File "C:\.virtualenv\qcd_apiTest\lib\site-packages\ddt.py", line 182, in wrapper
+    return func(self, *args, **kwargs)
+  File "G:\python3_code\sublime_text03\14SoftwareTest\lemon_python11\APITest\python_apiTest\py_ApiTestFframework_V2\testcase\test_001_register.py", line 88, in test_register
+    raise e
+  File "G:\python3_code\sublime_text03\14SoftwareTest\lemon_python11\APITest\python_apiTest\py_ApiTestFframework_V2\testcase\test_001_register.py", line 74, in test_register
+    self.assertEqual(actual,excepted_result)
+AssertionError: 2 != 0
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_15_异常用例_注册名为11位</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_002_login.TestLogin</td>
+    <td class="text-center">17</td>
+    <td class="text-center">17</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',17)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_01_正常用例_正常登录</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse in" align="left">
+    <pre>
+    
+pt2_1: {'case_id': 1, 'module_name': 'login', 'case_name': '正常用例-正常登录', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211235",\n "pwd":"123456abc"}', 'except': '{"msg":"OK"}', 'result': None, None: None}
+OK
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_02_失败用例_手机号为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse in" align="left">
+    <pre>
+    
+pt2_2: {'case_id': 2, 'module_name': 'login', 'case_name': '失败用例-手机号为空', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"",\n "pwd":"123456abc"}', 'except': '{"msg":"手机号码为空"}', 'result': None, None: None}
+手机号码为空
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_03_失败用例_密码为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse in" align="left">
+    <pre>
+    
+pt2_3: {'case_id': 3, 'module_name': 'login', 'case_name': '失败用例-密码为空', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211235",\n "pwd":""}', 'except': '{"msg":"密码为空"}', 'result': None, None: None}
+密码为空
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_04_失败用例_手机未注册</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse in" align="left">
+    <pre>
+    
+pt2_4: {'case_id': 4, 'module_name': 'login', 'case_name': '失败用例-手机未注册', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211200",\n "pwd":"123456abc"}', 'except': '{"msg":"账号信息错误"}', 'result': None, None: None}
+账号信息错误
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_05_失败用例_手机号大于11位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse in" align="left">
+    <pre>
+    
+pt2_5: {'case_id': 5, 'module_name': 'login', 'case_name': '失败用例-手机号大于11位', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"137432112355",\n "pwd":"123456abc"}', 'except': '{"msg":"无效的手机格式"}', 'result': None, None: None}
+无效的手机格式
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_06_失败用例_手机号小于11位</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_6'>通过</button>
+    <div id='div_pt2_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_6'>通过</button>
+    <div id='div_pt2_6' class="collapse in" align="left">
+    <pre>
+    
+pt2_6: {'case_id': 6, 'module_name': 'login', 'case_name': '失败用例-手机号小于11位', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"1374321123",\n "pwd":"123456abc"}', 'except': '{"msg":"无效的手机格式"}', 'result': None, None: None}
+无效的手机格式
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_07_失败用例_手机号不在频段</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_7'>通过</button>
+    <div id='div_pt2_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_7'>通过</button>
+    <div id='div_pt2_7' class="collapse in" align="left">
+    <pre>
+    
+pt2_7: {'case_id': 7, 'module_name': 'login', 'case_name': '失败用例-手机号不在频段', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"12374321123",\n "pwd":"123456abc"}', 'except': '{"msg":"无效的手机格式"}', 'result': None, None: None}
+无效的手机格式
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_08_失败用例_手机号包含字母</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_8'>通过</button>
+    <div id='div_pt2_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_8'>通过</button>
+    <div id='div_pt2_8' class="collapse in" align="left">
+    <pre>
+    
+pt2_8: {'case_id': 8, 'module_name': 'login', 'case_name': '失败用例-手机号包含字母', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"1374321123z",\n "pwd":"123456abc"}', 'except': '{"msg":"无效的手机格式"}', 'result': None, None: None}
+无效的手机格式
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_09_失败用例_手机号包含符号</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_9'>通过</button>
+    <div id='div_pt2_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_9'>通过</button>
+    <div id='div_pt2_9' class="collapse in" align="left">
+    <pre>
+    
+pt2_9: {'case_id': 9, 'module_name': 'login', 'case_name': '失败用例-手机号包含符号', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"1374321123.",\n "pwd":"123456abc"}', 'except': '{"msg":"无效的手机格式"}', 'result': None, None: None}
+无效的手机格式
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_10_失败用例_手机号包含汉字</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_10'>通过</button>
+    <div id='div_pt2_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_10'>通过</button>
+    <div id='div_pt2_10' class="collapse in" align="left">
+    <pre>
+    
+pt2_10: {'case_id': 10, 'module_name': 'login', 'case_name': '失败用例-手机号包含汉字', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"1374321123李",\n "pwd":"123456abc"}', 'except': '{"msg":"无效的手机格式"}', 'result': None, None: None}
+无效的手机格式
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_11_失败用例_密码长度小于6</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_11'>通过</button>
+    <div id='div_pt2_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_11'>通过</button>
+    <div id='div_pt2_11' class="collapse in" align="left">
+    <pre>
+    
+pt2_11: {'case_id': 11, 'module_name': 'login', 'case_name': '失败用例-密码长度小于6', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211235",\n "pwd":"12345"}', 'except': '{"msg":"账号信息错误"}', 'result': None, None: None}
+账号信息错误
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_12_失败用例_密码长度大于20</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_12'>通过</button>
+    <div id='div_pt2_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_12'>通过</button>
+    <div id='div_pt2_12' class="collapse in" align="left">
+    <pre>
+    
+pt2_12: {'case_id': 12, 'module_name': 'login', 'case_name': '失败用例-密码长度大于20', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211235",\n "pwd":"123456abc123456abc123"}', 'except': '{"msg":"账号信息错误"}', 'result': None, None: None}
+账号信息错误
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_13_失败用例_密码纯数字</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_13'>通过</button>
+    <div id='div_pt2_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_13'>通过</button>
+    <div id='div_pt2_13' class="collapse in" align="left">
+    <pre>
+    
+pt2_13: {'case_id': 13, 'module_name': 'login', 'case_name': '失败用例-密码纯数字', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211235",\n "pwd":"111111"}', 'except': '{"msg":"账号信息错误"}', 'result': None, None: None}
+账号信息错误
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_14_失败用例_密码纯字母</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_14'>通过</button>
+    <div id='div_pt2_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_14'>通过</button>
+    <div id='div_pt2_14' class="collapse in" align="left">
+    <pre>
+    
+pt2_14: {'case_id': 14, 'module_name': 'login', 'case_name': '失败用例-密码纯字母', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211235",\n "pwd":"abcabc"}', 'except': '{"msg":"账号信息错误"}', 'result': None, None: None}
+账号信息错误
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_15_失败用例_密码包含汉字</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_15'>通过</button>
+    <div id='div_pt2_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_15'>通过</button>
+    <div id='div_pt2_15' class="collapse in" align="left">
+    <pre>
+    
+pt2_15: {'case_id': 15, 'module_name': 'login', 'case_name': '失败用例-密码包含汉字', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211235",\n "pwd":"123456ab刘"}', 'except': '{"msg":"账号信息错误"}', 'result': None, None: None}
+账号信息错误
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_16_失败用例_密码包含特殊符号</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_16'>通过</button>
+    <div id='div_pt2_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_16'>通过</button>
+    <div id='div_pt2_16' class="collapse in" align="left">
+    <pre>
+    
+pt2_16: {'case_id': 16, 'module_name': 'login', 'case_name': '失败用例-密码包含特殊符号', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"13743211235",\n "pwd":"123456abc？"}', 'except': '{"msg":"账号信息错误"}', 'result': None, None: None}
+账号信息错误
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_login_17_失败用例_手机号密码都为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_17' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_17'>通过</button>
+    <div id='div_pt2_17' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_17' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_17'>通过</button>
+    <div id='div_pt2_17' class="collapse in" align="left">
+    <pre>
+    
+pt2_17: {'case_id': 17, 'module_name': 'login', 'case_name': '失败用例-手机号密码都为空', 'url': '/member/login', 'method': 'post', 'headers': '{"X-Lemonban-Media-Type": "lemonban.v2"}', 'data': '{"mobile_phone":"",\n "pwd":""}', 'except': '{"msg":"手机号码为空"}', 'result': None, None: None}
+手机号码为空
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>test_003_recharge_method1.TestRechargeMethod</td>
+    <td class="text-center">18</td>
+    <td class="text-center">18</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',18)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='pt3_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_01_异常用例_充值金额包含字母</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_1'>通过</button>
+    <div id='div_pt3_1' class="collapse in" align="left">
+    <pre>
+    
+pt3_1: {'code': 2, 'msg': '余额必须为数值型', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_02_异常用例_充值金额包含符号</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_2'>通过</button>
+    <div id='div_pt3_2' class="collapse in" align="left">
+    <pre>
+    
+pt3_2: {'code': 2, 'msg': '数字格式化异常', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_03_异常用例_充值金额包含汉字</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_3'>通过</button>
+    <div id='div_pt3_3' class="collapse in" align="left">
+    <pre>
+    
+pt3_3: {'code': 2, 'msg': '数字格式化异常', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_04_异常用例_充值金额为0</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_4'>通过</button>
+    <div id='div_pt3_4' class="collapse in" align="left">
+    <pre>
+    
+pt3_4: {'code': 0, 'msg': 'OK', 'data': {'id': 57934, 'leave_amount': 40165104.37, 'mobile_phone': '13712341235', 'reg_name': '小柠檬', 'reg_time': '2020-11-15 17:06:05.0', 'type': 1}, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_05_异常用例_充值类型为字符串</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_5'>通过</button>
+    <div id='div_pt3_5' class="collapse in" align="left">
+    <pre>
+    
+pt3_5: {'code': 0, 'msg': 'OK', 'data': {'id': 57934, 'leave_amount': 40166104.37, 'mobile_phone': '13712341235', 'reg_name': '小柠檬', 'reg_time': '2020-11-15 17:06:05.0', 'type': 1}, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_06_异常用例_金额前包含小数点</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_6'>通过</button>
+    <div id='div_pt3_6' class="collapse in" align="left">
+    <pre>
+    
+pt3_6: {'code': 2, 'msg': '余额必须为数值型', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_07_异常用例_金额后包含小数点</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_7'>通过</button>
+    <div id='div_pt3_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_7'>通过</button>
+    <div id='div_pt3_7' class="collapse in" align="left">
+    <pre>
+    
+pt3_7: {'code': 0, 'msg': 'OK', 'data': {'id': 57934, 'leave_amount': 40167104.37, 'mobile_phone': '13712341235', 'reg_name': '小柠檬', 'reg_time': '2020-11-15 17:06:05.0', 'type': 1}, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_08_异常用例_充值金额超过两位小数</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_8'>通过</button>
+    <div id='div_pt3_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_8'>通过</button>
+    <div id='div_pt3_8' class="collapse in" align="left">
+    <pre>
+    
+pt3_8: {'code': 2, 'msg': '余额小数超过两位', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_09_异常用例_充值金额大于50万</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_9'>通过</button>
+    <div id='div_pt3_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_9'>通过</button>
+    <div id='div_pt3_9' class="collapse in" align="left">
+    <pre>
+    
+pt3_9: {'code': 2, 'msg': '余额必须大于0并且小于或者等于500000', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_10_异常用例_充值金额为负值</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_10'>通过</button>
+    <div id='div_pt3_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_10'>通过</button>
+    <div id='div_pt3_10' class="collapse in" align="left">
+    <pre>
+    
+pt3_10: {'code': 2, 'msg': '余额必须大于0并且小于或者等于500000', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_11_异常用例_充值金额为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_11'>通过</button>
+    <div id='div_pt3_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_11'>通过</button>
+    <div id='div_pt3_11' class="collapse in" align="left">
+    <pre>
+    
+pt3_11: {'code': 2, 'msg': '余额必须为数值型', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_12_异常用例_用户id为空</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_12'>通过</button>
+    <div id='div_pt3_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_12'>通过</button>
+    <div id='div_pt3_12' class="collapse in" align="left">
+    <pre>
+    
+pt3_12: {'code': 1, 'msg': '用户id为空', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_13_异常用例_不存在的用户id</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_13'>通过</button>
+    <div id='div_pt3_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_13'>通过</button>
+    <div id='div_pt3_13' class="collapse in" align="left">
+    <pre>
+    
+pt3_13: {'code': 1007, 'msg': '无权限访问，请检查参数', 'data': None, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_14_正常用例_充值金额为1</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_14'>通过</button>
+    <div id='div_pt3_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_14'>通过</button>
+    <div id='div_pt3_14' class="collapse in" align="left">
+    <pre>
+    
+pt3_14: {'code': 0, 'msg': 'OK', 'data': {'id': 57934, 'leave_amount': 40167105.37, 'mobile_phone': '13712341235', 'reg_name': '小柠檬', 'reg_time': '2020-11-15 17:06:05.0', 'type': 1}, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_15_正常用例_充值金额为1000</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_15'>通过</button>
+    <div id='div_pt3_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_15'>通过</button>
+    <div id='div_pt3_15' class="collapse in" align="left">
+    <pre>
+    
+pt3_15: {'code': 0, 'msg': 'OK', 'data': {'id': 57934, 'leave_amount': 40168105.37, 'mobile_phone': '13712341235', 'reg_name': '小柠檬', 'reg_time': '2020-11-15 17:06:05.0', 'type': 1}, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_16' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_16_正常用例_充值金额为50万</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_16'>通过</button>
+    <div id='div_pt3_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_16'>通过</button>
+    <div id='div_pt3_16' class="collapse in" align="left">
+    <pre>
+    
+pt3_16: {'code': 0, 'msg': 'OK', 'data': {'id': 57934, 'leave_amount': 40668105.37, 'mobile_phone': '13712341235', 'reg_name': '小柠檬', 'reg_time': '2020-11-15 17:06:05.0', 'type': 1}, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_17' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_17_正常用例_充值金额为50万00</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_17' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_17'>通过</button>
+    <div id='div_pt3_17' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_17' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_17'>通过</button>
+    <div id='div_pt3_17' class="collapse in" align="left">
+    <pre>
+    
+pt3_17: {'code': 0, 'msg': 'OK', 'data': {'id': 57934, 'leave_amount': 41168105.37, 'mobile_phone': '13712341235', 'reg_name': '小柠檬', 'reg_time': '2020-11-15 17:06:05.0', 'type': 1}, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt3_18' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_method1_18_正常用例_充值金额为1000_00</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_18' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_18'>通过</button>
+    <div id='div_pt3_18' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_18' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_18'>通过</button>
+    <div id='div_pt3_18' class="collapse in" align="left">
+    <pre>
+    
+pt3_18: {'code': 0, 'msg': 'OK', 'data': {'id': 57934, 'leave_amount': 41169105.37, 'mobile_phone': '13712341235', 'reg_name': '小柠檬', 'reg_time': '2020-11-15 17:06:05.0', 'type': 1}, 'copyright': 'Copyright 柠檬班 © 2017-2020 湖南省零檬信息技术有限公司 All Rights Reserved'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>50</td>
+    <td>48</td>
+    <td>2</td>
+    <td>0</td>
+    <td>通过率：96.00%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>
