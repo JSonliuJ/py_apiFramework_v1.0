@@ -1,0 +1,55 @@
+logger:
+ name: api_test_v2
+ level: DEBUG
+ FileHandler_level: ERROR
+ console_level: WARNING
+ file: api_test_log.txt
+
+excel:
+  file: cases_data.xlsx
+  sheet:
+    - register
+    - login
+    - login2
+    - recharge
+    - recharge2
+    - withdraw
+    - withdraw2
+    - addloan
+    - addloan2
+    - auditloan
+    - auditloan2
+    - invest
+    - invest2
+    - updateNickName
+    - updateNickName2
+    - info
+    - info2
+html_report:
+ verbosity: 2
+ title: xxx系统测试报告
+ tester: jsonLiu
+
+database:
+ host: '120.78.128.25'
+ port: 3306
+ user: 'future'
+ password: '123456'
+ database: 'futureloan'
+ charset: 'utf8'
+
+admin_login:
+  method: 'post'
+  url: '/member/login'
+  data:
+    {"mobile_phone": "18593298080","pwd": "12345678"}
+  headers:
+    {"X-Lemonban-Media-Type": "lemonban.v2", "Content-Type": "application/json"}
+
+login:
+  method: 'post'
+  url: '/member/login'
+  data:
+    {"mobile_phone": "18593298081","pwd": "12345678"}
+  headers:
+    {"X-Lemonban-Media-Type": "lemonban.v2", "Content-Type": "application/json"}
