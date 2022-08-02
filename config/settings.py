@@ -22,7 +22,7 @@ class Settings:
    # yaml文件路径
    conf_yaml_path = os.path.join(conf_path,'config.yaml')
 class DevSettings(Settings):
-        host = 'http://120.78.128.25:8766/futureloan'
+        host = 'http://xxxxx/futureloan'
 
 dev_settings = DevSettings()
 
