@@ -44,7 +44,7 @@ admin_login:
   data:
     {"mobile_phone": "18593298080","pwd": "12345678"}
   headers:
-    {"X-Lemonban-Media-Type": "lemonban.v2", "Content-Type": "application/json"}
+    {"token": "xxxx", "Content-Type": "application/json"}
 
 login:
   method: 'post'
@@ -52,4 +52,4 @@ login:
   data:
     {"mobile_phone": "18593298081","pwd": "12345678"}
   headers:
-    {"X-Lemonban-Media-Type": "lemonban.v2", "Content-Type": "application/json"}
+    {"token": "xxxx", "Content-Type": "application/json"}
